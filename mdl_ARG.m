@@ -19,9 +19,7 @@ classdef mdl_ARG < handle
             
             % I will just add this lines
             % Also create some space and functions here
-            
-            C = BLOSUM();
-            D = BLOSUM();
+            B = BLOSUM();
 
             M = A.edges_matrix;
             nodes_atrs = A.nodes_vector;
