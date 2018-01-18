@@ -19,6 +19,11 @@ classdef mdl_ARG < handle
             
             B = BLOSUM();
             
+            % This changes are not important; they are part of the github
+            % training
+            C = BLOSUM();
+            D = BLOSUM();
+            
             M = A.edges_matrix;
             nodes_atrs = A.nodes_vector;
             
