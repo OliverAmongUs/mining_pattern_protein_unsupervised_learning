@@ -17,8 +17,6 @@ classdef mdl_ARG < handle
         % new component for the model.
         function self = mdl_ARG(A)
             
-            B = BLOSUM();
-            
             M = A.edges_matrix;
             nodes_atrs = A.nodes_vector;
             
