@@ -16,12 +16,8 @@ classdef mdl_ARG < handle
         % setting up constructor which will take an sample ARG and build a
         % new component for the model.
         function self = mdl_ARG(A)
-            
-            % This changes are not important; they are part of the github
-            % training
-            C = BLOSUM();
-            D = BLOSUM();
-            
+            B = BLOSUM();
+
             M = A.edges_matrix;
             nodes_atrs = A.nodes_vector;
             
