@@ -17,8 +17,6 @@ classdef mdl_ARG < handle
         % new component for the model.
         function self = mdl_ARG(A)
             
-            B = BLOSUM();
-            
             % This changes are not important; they are part of the github
             % training
             C = BLOSUM();
