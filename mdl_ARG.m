@@ -16,9 +16,7 @@ classdef mdl_ARG < handle
         % setting up constructor which will take an sample ARG and build a
         % new component for the model.
         function self = mdl_ARG(A)
-            
-            % I will just add this lines
-            % Also create some space and functions here
+        
             B = BLOSUM();
 
             M = A.edges_matrix;
