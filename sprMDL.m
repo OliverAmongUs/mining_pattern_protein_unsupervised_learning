@@ -136,8 +136,8 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             obj.updateComponentStructure(true);
             obj.EM();
             
-%             % get the thredshold minimum score
-%             obj.getThredsholdScore();
+            % get the thredshold minimum score
+            obj.getThredsholdScore();
         end
         
         % The EM-alogirthem procedure
@@ -418,7 +418,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % Detect if a ARG has the same pattern
         function [tf, score] = checkPattern(obj, ARG)
             score = obj.scorePattern(ARG);
-            tf = ztest(score, obj.z_test_mean,obj.z_test_sigma,'Alpha',obj.z_test_alpha, 'Tail','Right');
+            tf = ztest(score, obj.z_test_mean,obj.z_test_sigma,'Alpha',obj.z_test_alpha, 'Tail','right');
         end
         
         % Detect if a ARG has the same pattern
@@ -433,9 +433,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                score = score + ...
                     sprMDL.component_score(node_match_score,node_compatibility,edge_compatibility) * obj.weight(i);
             end
-            
-%             score = score/ARG.num_nodes;
-            
+            score = score / ARG.num_nodes;
             if obj.debug
                 figure;
                 f_count = 1;
@@ -522,8 +520,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
         % mdl_converge judges if the model is converged
         function converge = mdl_converge( old_mdl, new_mdl, e )
             if length(old_mdl.weight)==length(new_mdl.weight)
-                diff = sum(sum(abs(old_mdl.sample_component_matching_probs-new_mdl.sample_component_matching_probs)))/(length(new_mdl.mdl_ARGs)*length(new_mdl.sampleARGs));
-                %diff = sum(abs(old_mdl.weight-new_mdl.weight))/length(new_mdl.weight);
+                diff = sum(abs(old_mdl.weight-new_mdl.weight))/length(new_mdl.weight);
                 converge = diff<e;
             else
                 converge = false;

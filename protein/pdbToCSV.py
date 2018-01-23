@@ -51,43 +51,32 @@ TRIP_2_SING_DIC = {	'ALA': 'A',
 
 
 def write_New_Seq_File():
-    org = open(file_Name, "r")
-    new = open(file_Name[:file_Name.find('.')] + ".csv", 'w')
-    id = 0
-    seq = 0
-    count = 0
-    x = 0
-    y = 0
-    z = 0
-
-    for line in org:
-        if line.startswith('ATOM'):
-            new_id = int(line[22:26].strip())
-            if (new_id == id):
-                count = count + 1
-                x = x + float(line[30:38].strip())
-                y = y + float(line[38:46].strip())
-                z = z + float(line[46:53].strip())
-            else:
-                if(count != 0):
-                    new.write(str(id) + "," + str(seq) + "," + str(x / count) +
-                              "," + str(y / count) + "," + str(z / count) + "\n")
-                id = new_id
-                seq = SEQ_2_NUM_DIC[TRIP_2_SING_DIC[line[17:20].strip()]]
-                count = 1
-                x = float(line[30:38].strip())
-                y = float(line[38:46].strip())
-                z = float(line[46:53].strip())
-
-    new.write(str(id) + "," + str(seq) + "," + str(x / count) +
-              "," + str(y / count) + "," + str(z / count) + "\n")
-    org.close()
-    new.close()
+    import glob
+    i = 0
+    for file_Name in glob.glob('*.pdb'):
+        new = open(file_Name[:file_Name.find('.')] + ".csv", 'w')
+        org = open(file_Name, "r")
+        id = 0
+        seq = 0
+        count = 0
+        x = 0
+        y = 0
+        z = 0
+        first = True
+        for line in org:
+            if line.startswith('ATOM'):
+                new_id = int(line[22:26].strip())
+                if (line[13] == 'C') and (new_id!=id):
+                    x = float(line[30:38].strip())
+                    y = float(line[38:46].strip())
+                    z = float(line[46:53].strip())
+                    id = new_id
+                    seq = SEQ_2_NUM_DIC[TRIP_2_SING_DIC[line[17:20].strip()]]
+                    new.write(str(id)+","+str(seq)+","+str(x) +
+                                              "," + str(y) + "," + str(z) + "\n")
+        org.close()
+        new.close()
 
 
 if __name__ == "__main__":
-
-    global file_Name
-    file_Name = sys.argv[1]
-
     write_New_Seq_File()

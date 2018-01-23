@@ -23,9 +23,9 @@
     e_cov = 0.01;
     
     % node attriubute compatability weight
-    alpha = 1; % edge
+    alpha = 0.1; % edge
     delta = 1; % node
-    gamma = 0; %linear
+    gamma = 1; %linear
     
     % the size of the real matchin matrix
     A=ARG1.num_nodes;
@@ -130,18 +130,19 @@
             %add node attribute
             Q=alpha*Q+delta*C_n;
             
-            % add linear encouragement
-            linear_score = zeros(size(Q));
-            non_null = m_Head(1:end-1,1:end-1);
-            non_null_linear = non_null(3:end,3:end).*non_null(1:end-2,1:end-2);
-            linear_score(2:end-2,2:end-2)=non_null_linear;
-            null_v = m_Head(:,end);
-            null_v_linear = null_v(3:end).*null_v(1:end-2);
-            null_h = m_Head(end,:);
-            null_h_linear = null_h(3:end).*null_h(1:end-2);
-            linear_score(2:end-1,end)=null_v_linear;
-            linear_score(end,2:end-1)=null_h_linear;
-            Q=Q+gamma*linear_score;
+            %{add linear encouragement
+            %linear_score = zeros(size(Q));
+            %non_null = m_Head(1:end-1,1:end-1);
+            %non_null_linear = non_null(3:end,3:end).*non_null(1:end-2,1:end-2);
+            %linear_score(2:end-2,2:end-2)=non_null_linear;
+            %null_v = m_Head(:,end);
+            %null_v_linear = null_v(3:end).*null_v(1:end-2);
+            %null_h = m_Head(end,:);
+            %null_h_linear = null_h(3:end).*null_h(1:end-2);
+            %linear_score(2:end-1,end)=null_v_linear;
+            %linear_score(end,2:end-1)=null_h_linear;
+            %Q=Q+gamma*linear_score;
+            %}
             
             % Now update m_Head!
             m_Head=exp(beta*Q);
@@ -167,7 +168,7 @@
                 imshow(m_Head,'InitialMagnification',1000);       
                 drawnow;
                 subplot(1,2,2)
-                imshow(C_n/10,'InitialMagnification',1000); 
+                imshow(C_n,'InitialMagnification',1000); 
                 drawnow;
             end
             convergeB();

@@ -4,20 +4,23 @@ function [ proteinARG, protein] = GenerateProteinARG(fileName)
 
     protein = csvread(fileName);
     
-%     start_idx = NaN;
-%     end_idx = NaN;
-%     
-%     for i = 1:size(protein,1)
-%         if start_sequence == protein(i,1) && isnan(start_idx)
-%             start_idx = i;
-%         end
-%         
-%         if end_sequence==protein(i,1) && isnan(end_idx)
-%             end_idx= i;
-%         end
-%     end
-%         
-%     protein = protein(start_idx:end_idx,:);
+    %start_idx = NaN;
+    %end_idx = NaN;
+    
+    start_idx = 1;
+    end_idx = size(protein,1);
+    
+    %for i = 1:size(protein,1)
+    %   if start_sequence == protein(i,1) && isnan(start_idx)
+    %      start_idx = i;
+      % end
+    %
+        %if end_sequence==protein(i,1) && isnan(end_idx)
+        %    end_idx= i;
+        %end
+    %end
+        
+    protein = protein(start_idx:end_idx,:);
     
     number_of_AA = size(protein,1);
     proteinEdge = cell(number_of_AA);
