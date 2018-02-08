@@ -21,6 +21,8 @@ proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/1fjsL00.csv');
 proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/1z6eL00.csv');
 proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/2bokL00.csv');
 proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/2jkhL00.csv');
+
+%{
 proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/2p3tA00.csv');
 proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/2p3uA00.csv');
 proteinARGs_1{end+1} = GenerateProteinARG('protein/test1/2pr3B00.csv');
@@ -210,6 +212,8 @@ proteinARGs_9{end+1} = GenerateProteinARG('protein/test9/3e21A00.csv');
 proteinARGs_9{end+1} = GenerateProteinARG('protein/test9/3ihpB05.csv');
 proteinARGs_9{end+1} = GenerateProteinARG('protein/test9/4cudA03.csv');
 proteinARGs_9{end+1} = GenerateProteinARG('protein/test9/4o02B05.csv');
+
+%}
 %% Training
 mdl = sprMDL(proteinARGs_1, 2);
 save model.mat mdl;

@@ -93,7 +93,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             idx = randperm(length(sampleARGs)); % we first permutate the index for randomness
             idx = idx(1:number_of_components);  % take what we need
             comp_ARG = sampleARGs(idx);
-            obj.c_idx = idx;
+            % obj.c_idx = idx;
             
             % Now convert it to model ARG
             generate_mdl_ARG=@(A)mdl_ARG(A);
@@ -148,7 +148,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             % get the node matching score
             obj.graphMatching(true);
             
-            % MATCHING Prob HERE
+            % MATCHING SCORE HERE AGAIN
             % get the sample-component matching score and probability
             obj.getMatchingProbs();
             
@@ -174,9 +174,21 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             toc(trainRound)
         end
         
-        % get the graph matching score for each sample-componennt pair
+        % get the graph matching score for each sample-component pair
         function graphMatching(obj,train)
             obj.node_match_scores = cell([obj.number_of_sample,obj.number_of_components]);
+            
+            
+            for i=1:obj.number_of_sample
+                for j = 1:obj.number_of_components
+                    [node_match_score,node_compatibility,edge_compatibility] = graph_matching(obj.sampleARGs{i},obj.mdl_ARGs{j},train);
+                    obj.node_match_scores{i,j}=node_match_score;
+                    % obj.node_compatibilities{i,j}=node_compatibility;
+                    % obj.edge_compatibilities{i,j}=edge_compatibility;
+                end
+            end
+            
+            %{
             obj.node_compatibilities = cell(size(obj.node_match_scores));
             obj.edge_compatibilities = cell(size(obj.node_match_scores));
             
@@ -188,7 +200,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
                     obj.edge_compatibilities{i,j}=edge_compatibility;
                 end
             end
-            
+            %}
             if obj.debug
                 obj.debugMatch()
             end
