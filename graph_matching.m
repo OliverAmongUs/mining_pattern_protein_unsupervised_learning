@@ -32,9 +32,13 @@
     I=ARG2.num_nodes-1;
     real_size = [A,I];
     
-    % adjust ARG1
+    % adjust ARG2
     M = ARG2.edges_matrix(1:I,1:I,:);
+    
+    % covariance of ARG2
     M_C = ARG2.edges_cov(1:I,1:I,:);
+    
+    % eliminate the extra information
     V = ARG2.nodes_vector(1:I,:);
     
     % the size of the matrix with slacks
@@ -68,11 +72,13 @@
     % pre-calculate the edge compatability
     C_e = zeros((A+1)^2,(I+1)^2); 
     
+    % edge attributes for the sample arg
     tmp_edges = NaN(A+1,A+1,size(ARG1.edges_matrix,3));
     tmp_edges(1:A,1:A,:) = ARG1.edges_matrix;
     tmp_edges(A+1,A+1,:) = Inf;
     edge_atr_1 = reshape(tmp_edges,(A+1)^2,[]);
     
+    % edge attributes for the model arg
     tmp_edges = NaN(I+1,I+1,size(M,3));
     tmp_edges(1:I,1:I,:) = M;
     tmp_edges(I+1,I+1,:) = Inf;
@@ -93,7 +99,8 @@
     
     nan_idx = isnan(C_e);
     inf_idx = isinf(C_e);
-
+    
+    % row1 in the slides; when A_i!=null and a_k = null
     % nil<->a
     C_e(nan_idx) = 0;
     % nil<->nil
@@ -116,6 +123,7 @@
 
         while ~converge_B && I_B <= I_0 % do B until B is converge or iteration exceeds
             
+            % The randomized item is too large; M could be greater than 1
             m_Head = m_Head + s_level*(2*rand(size(m_Head))-1)*(1/A);
             
             old_B=m_Head;   % get the old matrix
@@ -181,7 +189,8 @@
     % Set up return
     
     % get the match_matrix in real size
-    match_matrix = heuristic(m_Head,A,I,train);
+    % match_matrix = heuristic(m_Head,A,I,train);
+    match_matrix=m_Head;
     
     % modify compatibility
     C_n = C_n(1:A,1:I+1);

@@ -93,7 +93,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             idx = randperm(length(sampleARGs)); % we first permutate the index for randomness
             idx = idx(1:number_of_components);  % take what we need
             comp_ARG = sampleARGs(idx);
-            % obj.c_idx = idx;
+            obj.c_idx = idx;
             
             % Now convert it to model ARG
             generate_mdl_ARG=@(A)mdl_ARG(A);
@@ -181,7 +181,7 @@ classdef sprMDL < handle & matlab.mixin.Copyable
             
             for i=1:obj.number_of_sample
                 for j = 1:obj.number_of_components
-                    [node_match_score,node_compatibility,edge_compatibility] = graph_matching(obj.sampleARGs{i},obj.mdl_ARGs{j},train);
+                    [node_match_score] = graph_matching_new(obj.sampleARGs{i},obj.mdl_ARGs{j},train);
                     obj.node_match_scores{i,j}=node_match_score;
                     % obj.node_compatibilities{i,j}=node_compatibility;
                     % obj.edge_compatibilities{i,j}=edge_compatibility;
