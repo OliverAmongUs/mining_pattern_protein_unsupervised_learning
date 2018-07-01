@@ -157,3 +157,4 @@
         score = atr2(atr1);
     end
  end
+ %this is a git test from Oliver, no effect for code, please ignore
