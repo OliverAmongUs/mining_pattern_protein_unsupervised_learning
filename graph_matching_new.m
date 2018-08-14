@@ -63,7 +63,6 @@
          
          subgraph_nodes_1 = num2cell(ARG1.nodes_vector(rowIdcs1).');
          
-         %!!!!This sentence is not correct
          subgraph_nodes_2 = num2cell(ARG2.nodes_aa_index(rowIdcs2).');
          
          a = ARG(num2cell(subgraph_1{i}),subgraph_nodes_1);
@@ -73,6 +72,7 @@
          
          
      end
+ %{
      function [matching_score] = match_score(ARG1,ARG2)
          % show procedure flag
          sFlag = 0;
@@ -151,9 +151,13 @@
              I_B = 0;        % counting the iteration of B
              
              while ~converge_B && I_B <= I_0 % do B until B is converge or iteration exceeds
-                 
+             end   
+         end
                  
     function [score] = node_compatibility(atr1, atr2)
         score = atr2(atr1);
     end
+   end
+ %}
  end
+             
