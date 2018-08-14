@@ -157,7 +157,11 @@
     function [score] = node_compatibility(atr1, atr2)
         score = atr2(atr1);
     end
+<<<<<<< HEAD
    end
  %}
  end
              
+=======
+ end
+>>>>>>> 65e23bf5196b26817e3a9f66f982e6e4bfdbefae
